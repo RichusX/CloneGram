@@ -19,8 +19,9 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/profile', 'ProfileController@index')->name('profile.index');
+Route::get('/profile', ['middleware'=>'auth', 'uses'=>'ProfileController@index'])->name('profile.index');
 Route::get('/profile/{username}', 'ProfileController@show')->name('profile.show');
-Route::get('/p', 'PostsController@create')->name('post.create');
+Route::get('/p/create', ['middleware'=>'auth', 'uses'=>'PostsController@create'])->name('post.create');
+Route::post('/p', ['middleware'=>'auth', 'uses'=>'PostsController@store'])->name('post.store');
 Route::get('/p/{post_id}', 'PostsController@show')->name('post.show');
 

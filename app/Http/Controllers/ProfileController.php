@@ -11,20 +11,14 @@ class ProfileController extends Controller
     /**
      * Show the current user profile.
      *
-     * @return \Illuminate\Contracts\Support\Renderable
      */
     public function index()
     {
-        // Check if the current user is authenticated
-        if (Auth::check()) {
-            // Return their own profile
-            return view('profiles.show', [
-                'user' => Auth::user(),
-            ]);
-        } else {
-            // If guest, redirect to login page
-            return view('auth.login');
-        }
+        // Return their own profile
+        return view('profiles.show', [
+            'user' => Auth::user(),
+        ]);
+
     }
 
 
