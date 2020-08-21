@@ -1,2 +1,2 @@
 # CloneGram
-An Instagram clone built using Laravel 7. The purpose of this project is to learn Laravel.
+An Instagram clone built using Laravel 7. The purpose of this project is to learn how to use Laravel.
