@@ -7,9 +7,12 @@
             <img src="/img/profile_pic.jpg" class="rounded-circle">
         </div>
         <div class="col-9 pt-5">
-            <div class="d-flex justify-content-between align-items-baseline">
+            <div class="d-flex align-items-baseline justify-content-between">
                 <h1>{{ $user->username }}</h1>
-                <div><a href="{{ @route('post.create') }}" class="btn btn-primary ml-4"> Create post</a></div>
+                <div class="d-flex">
+                    <div><a href="{{ @route('post.create') }}" class="btn btn-primary ml-4">Create post</a></div>
+                    <div><a href="{{ @route('profile.edit', ['username'=>$user->username]) }}" class="btn btn-secondary ml-4">Edit profile</a></div>
+                </div>
             </div>
             <div class="d-flex">
                 <div class="pr-4"><strong>{{ $user->posts->count() }}</strong> posts</div>

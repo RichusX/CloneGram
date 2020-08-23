@@ -29,4 +29,27 @@ class ProfileController extends Controller
             'user' => $user,
         ]);
     }
+
+    public function edit($username)
+    {
+        $user = User::where('username', $username)->firstOrFail();
+
+        $this->authorize('update', $user->profile);
+        return view('profiles.edit', [
+            'user' => $user,
+        ]);
+    }
+
+    public function update($username)
+    {
+        $data = request()->validate([
+            'description' => ['required', 'string'],
+            'url' => ['string', 'URL'],
+            'image' => ['image']
+        ]);
+
+        Auth::user()->profile->update($data);
+
+        return redirect()->route('profile.index');
+    }
 }
