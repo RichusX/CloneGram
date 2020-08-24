@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Intervention\Image\Facades\Image;
 
 class ProfileController extends Controller
 {
@@ -48,7 +49,19 @@ class ProfileController extends Controller
             'image' => ['image']
         ]);
 
-        Auth::user()->profile->update($data);
+
+
+        if (request('image')){
+            $imagePath = request('image')->store('profile', 'public');
+            Image::make(public_path("storage/{$imagePath}"))->fit(800)->save();
+
+            Auth::user()->profile->update(array_merge(
+                $data,
+                ['image' => $imagePath]
+            ));
+        } else {
+            Auth::user()->profile->update($data);
+        }
 
         return redirect()->route('profile.index');
     }

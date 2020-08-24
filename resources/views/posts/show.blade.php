@@ -7,8 +7,32 @@
                 <img src="/storage/{{ $post->image }}" class="img-fluid" alt="">
             </div>
             <div class="col-4">
-                <a href="{{ @route('profile.show', ['username' => $post->user->username]) }}"><h3>{{ $post->user->username }}</h3></a>
-                <p>{{ $post->caption }}</p>
+
+
+                    <div class="d-flex align-items-center">
+                        <div class="mr-3">
+                            <a href="{{ @route('profile.show', ['username' => $post->user->username]) }}" >
+                                <img src="{{ $post->user->profile->profileImage() }}" alt="{{ $post->user->username}}'s profile picture" class="rounded-circle w-100" style="max-width: 40px;">
+                            </a>
+                        </div>
+                        <div class="font-weight-bold">
+                            <a href="{{ @route('profile.show', ['username' => $post->user->username]) }}" >
+                                <span class="text-dark">{{ $post->user->username }}</span>
+                            </a>
+                            @if($post->user->username != Auth::user()->username)
+                                <span>•</span>
+                                <a href="#">Follow</a>
+                            @endif
+
+                        </div>
+                    </div>
+                <hr>
+                <p>
+                    <a href="{{ @route('profile.show', ['username' => $post->user->username]) }}" >
+                        <span class="font-weight-bold text-dark">{{ $post->user->username }}</span>
+                    </a>
+                    {{ $post->caption }}
+                </p>
             </div>
         </div>
     </div>

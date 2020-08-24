@@ -4,14 +4,15 @@
 <div class="container">
     <div class="row">
         <div class="col-3 p-5">
-            <img src="/img/profile_pic.jpg" class="rounded-circle">
+            <img src="{{ $user->profile->profileImage() }}" class="rounded-circle w-100">
         </div>
         <div class="col-9 pt-5">
             <div class="d-flex align-items-baseline justify-content-between">
                 <h1>{{ $user->username }}</h1>
                 <div class="d-flex">
-                    <div><a href="{{ @route('post.create') }}" class="btn btn-primary ml-4">Create post</a></div>
-                    <div><a href="{{ @route('profile.edit', ['username'=>$user->username]) }}" class="btn btn-secondary ml-4">Edit profile</a></div>
+                    @can('update', $user->profile)
+                        <div><a href="{{ @route('profile.edit', ['username'=>$user->username]) }}" class="btn btn-secondary ml-4">Edit profile</a></div>
+                    @endcan
                 </div>
             </div>
             <div class="d-flex">
@@ -32,13 +33,6 @@
                 </a>
             </div>
         @endforeach
-
-{{--        <div class="col-4">--}}
-{{--            <img src="/img/instapic1.jpg" class="w-100" alt=""/>--}}
-{{--        </div>--}}
-{{--        <div class="col-4">--}}
-{{--            <img src="/img/instapic1.jpg" class="w-100" alt=""/>--}}
-{{--        </div>--}}
     </div>
 </div>
 @endsection
