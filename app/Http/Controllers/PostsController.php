@@ -9,6 +9,15 @@ use Intervention\Image\Facades\Image;
 
 class PostsController extends Controller
 {
+    public function index()
+    {
+        $following = Auth::user()->following()->pluck('profiles.user_id');
+        $posts = Post::whereIn('user_id', $following)->latest()->get();
+
+        return view('posts.index', compact('posts'));
+
+    }
+
     public function create()
     {
         return view('posts.create');
@@ -39,6 +48,5 @@ class PostsController extends Controller
         ]);
 
         return redirect()->route('profile.index');
-
     }
 }
