@@ -14,6 +14,11 @@ class Post extends Model
         return $this->belongsTo(User::class);
     }
 
+    public function liked_by()
+    {
+        return $this->belongsToMany(User::class);
+    }
+
     public function created_at_string($level = 1) {
         $now = new DateTime;
         $ago = new DateTime($this->created_at);

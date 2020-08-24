@@ -12,9 +12,11 @@ class PostsController extends Controller
     public function index()
     {
         $following = Auth::user()->following()->pluck('profiles.user_id');
+        $following->push([Auth::user()->id =>Auth::user()->id]);  // Add users own posts to the feed
         $posts = Post::whereIn('user_id', $following)->latest()->get();
+        $likes = Auth::user()->liked_posts()->pluck('post_id');
 
-        return view('posts.index', compact('posts'));
+        return view('posts.index', compact('posts', 'likes'));
 
     }
 
@@ -25,9 +27,9 @@ class PostsController extends Controller
 
     public function show(Post $post)
     {
-        return view('posts.show', [
-            'post' => $post,
-        ]);
+        $follows = (Auth::user()) ? Auth::user()->following->contains($post->user_id) : false;
+        $likes = Auth::user()->liked_posts()->pluck('post_id');  // TODO: Optimise this, inefficient to pass all liked posts
+        return view('posts.show', compact('post', 'likes', 'follows'));
     }
 
     public function store()

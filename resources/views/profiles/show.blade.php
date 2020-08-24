@@ -8,7 +8,7 @@
         </div>
         <div class="col-9 pt-5">
             <div class="d-flex align-items-center">
-                <h1>{{ $user->username }}</h1>
+                <h1 class="mr-4">{{ $user->username }}</h1>
                 @auth
                         @if($user->id != Auth::user()->id)
                             <follow-button user-id="{{ $user->id }}" follows="{{ $follows }}"></follow-button>

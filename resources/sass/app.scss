@@ -6,3 +6,9 @@
 
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
+
+.btn-link, .btn-link:focus, .btn-link:active {
+    outline: none !important;
+    box-shadow: none;
+    padding: 0;
+}

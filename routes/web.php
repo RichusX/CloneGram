@@ -26,3 +26,4 @@ Route::post('/p', ['middleware'=>'auth', 'uses'=>'PostsController@store'])->name
 Route::get('/p/{post}', 'PostsController@show')->name('post.show');
 
 Route::post('/follow/{user}', ['middleware'=>'auth', 'uses'=>'FollowController@store'])->name('follow.store');
+Route::post('/like/{post}', ['middleware'=>'auth', 'uses'=>'LikeController@store'])->name('like.store');

@@ -1,12 +1,12 @@
 <template>
-    <div>
-        <button class="btn ml-4" :class="btnClass" @click="followUser" v-text="buttonText">Follow</button>
-    </div>
+
+        <button class="btn" :class="btnClass" @click="followUser" v-text="buttonText">Follow</button>
+
 </template>
 
 <script>
     export default {
-        props: ['userId', 'follows'],
+        props: ['userId', 'follows', 'asLink'],
 
         mounted() {
             console.log('Component mounted.');
@@ -33,7 +33,12 @@
                 return this.status ? 'Unfollow' : 'Follow';
             },
             btnClass(){
-                return this.status ? 'btn-outline-secondary' : 'btn-primary';
+                if (!this.asLink){
+                    return this.status ? 'btn-outline-secondary' : 'btn-primary';
+                } else {
+                    return 'btn-link';
+                }
+
             }
         }
     }

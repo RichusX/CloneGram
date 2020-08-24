@@ -7,8 +7,6 @@
                 <img src="/storage/{{ $post->image }}" class="img-fluid" alt="">
             </div>
             <div class="col-4">
-
-
                     <div class="d-flex align-items-center">
                         <div class="mr-3">
                             <a href="{{ @route('profile.show', ['username' => $post->user->username]) }}" >
@@ -21,7 +19,8 @@
                             </a>
                             @if($post->user_id != Auth::user()->id)
                                 <span>•</span>
-                                <a href="#">Follow</a>
+{{--                                <a href="#">Follow</a>--}}
+                                <follow-button user-id="{{ $post->user_id }}" follows="{{ $follows }}" as-link="btn-link"></follow-button>
                             @endif
 
                         </div>
