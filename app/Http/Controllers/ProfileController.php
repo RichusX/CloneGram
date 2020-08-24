@@ -26,9 +26,9 @@ class ProfileController extends Controller
     public function show($username)
     {
         $user = User::where('username', $username)->firstOrFail();
-        return view('profiles.show', [
-            'user' => $user,
-        ]);
+        $follows = (Auth::user()) ? Auth::user()->following->contains($user->id) : false;
+
+        return view('profiles.show', compact('user', 'follows'));
     }
 
     public function edit($username)
@@ -36,9 +36,7 @@ class ProfileController extends Controller
         $user = User::where('username', $username)->firstOrFail();
 
         $this->authorize('update', $user->profile);
-        return view('profiles.edit', [
-            'user' => $user,
-        ]);
+        return view('profiles.edit', compact('user'));
     }
 
     public function update($username)
@@ -48,8 +46,6 @@ class ProfileController extends Controller
             'url' => ['string', 'URL'],
             'image' => ['image']
         ]);
-
-
 
         if (request('image')){
             $imagePath = request('image')->store('profile', 'public');

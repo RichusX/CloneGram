@@ -19,7 +19,7 @@
                             <a href="{{ @route('profile.show', ['username' => $post->user->username]) }}" >
                                 <span class="text-dark">{{ $post->user->username }}</span>
                             </a>
-                            @if($post->user->username != Auth::user()->username)
+                            @if($post->user_id != Auth::user()->id)
                                 <span>•</span>
                                 <a href="#">Follow</a>
                             @endif

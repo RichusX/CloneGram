@@ -11,12 +11,12 @@ class PostsController extends Controller
 {
     public function create()
     {
-        return view('posts/create');
+        return view('posts.create');
     }
 
     public function show(Post $post)
     {
-        return view('posts/show', [
+        return view('posts.show', [
             'post' => $post,
         ]);
     }

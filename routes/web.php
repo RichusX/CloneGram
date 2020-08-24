@@ -13,10 +13,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
 Auth::routes();
 
 Route::get('/profile', ['middleware'=>'auth', 'uses'=>'ProfileController@index'])->name('profile.index');
@@ -28,3 +24,4 @@ Route::get('/p/create', ['middleware'=>'auth', 'uses'=>'PostsController@create']
 Route::post('/p', ['middleware'=>'auth', 'uses'=>'PostsController@store'])->name('post.store');
 Route::get('/p/{post}', 'PostsController@show')->name('post.show');
 
+Route::post('/follow/{user}', ['middleware'=>'auth', 'uses'=>'FollowController@store'])->name('follow.store');
