@@ -54,6 +54,7 @@ class RegisterController extends Controller
             'username' => ['required', 'string', 'max:50', 'unique:users', 'alpha_dash'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
+            recaptchaFieldName() => recaptchaRuleName(),
         ]);
     }
 
