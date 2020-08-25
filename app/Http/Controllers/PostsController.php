@@ -13,8 +13,8 @@ class PostsController extends Controller
     {
         $following = Auth::user()->following()->pluck('profiles.user_id');
         $following->push([Auth::user()->id =>Auth::user()->id]);  // Add users own posts to the feed
-        $posts = Post::whereIn('user_id', $following)->latest()->get();
-        $likes = Auth::user()->liked_posts()->pluck('post_id');
+        $posts = Post::whereIn('user_id', $following)->with('user')->latest()->paginate(5);
+        $likes = Auth::user()->liked_posts()->pluck('post_id');  // TODO: Optimise this, inefficient to pass all liked posts
 
         return view('posts.index', compact('posts', 'likes'));
 
