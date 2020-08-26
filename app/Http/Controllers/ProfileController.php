@@ -33,17 +33,20 @@ class ProfileController extends Controller
         $user = User::where('username', $username)->firstOrFail();
         $follows = (Auth::user()) ? Auth::user()->following->contains($user->id) : false;
 
-        $postCount = Cache::remember('count.posts.'.$user->id, 30, function () use ($user) {
-            return $user->posts->count();
-        });
-        $followerCount = Cache::remember('count.followers.'.$user->id, 30, function () use ($user) {
-            return $user->profile->followers->count();
-        });
-        $followingCount = Cache::remember('count.following.'.$user->id, 30, function () use ($user) {
-            return $user->following->count();
-        });
+        // Gather user profile stats (post count, followers and following) and cache them for 30 sec
+        $profileStats = [
+            'posts' => Cache::remember('count.posts.'.$user->id, 30, function () use ($user) {
+                return $user->posts->count();
+            }),
+            'followers' => Cache::remember('count.followers.'.$user->id, 30, function () use ($user) {
+                return $user->profile->followers->count();
+            }),
+            'following' => Cache::remember('count.following.'.$user->id, 30, function () use ($user) {
+                return $user->following->count();
+            }),
+        ];
 
-            return view('profiles.show', compact('user', 'follows', 'postCount', 'followerCount', 'followingCount'));
+        return view('profiles.show', compact('user', 'follows', 'profileStats'));
     }
 
     /**

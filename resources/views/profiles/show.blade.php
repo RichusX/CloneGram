@@ -21,9 +21,9 @@
                 @endauth
             </div>
             <div class="d-flex">
-                <div class="pr-4"><strong>{{ $postCount }}</strong> posts</div>
-                <div class="pr-4"><strong>{{ $followerCount }}</strong> followers</div>
-                <div class="pr-4"><strong>{{ $followingCount }}</strong> following</div>
+                <div class="pr-4"><strong>{{ $profileStats['posts'] }}</strong> posts</div>
+                <div class="pr-4"><strong>{{ $profileStats['followers'] }}</strong> followers</div>
+                <div class="pr-4"><strong>{{ $profileStats['following'] }}</strong> following</div>
             </div>
             <div class="pt-3 font-weight-bold">{{ $user->name }}</div>
             <div>{{ $user->profile->description }}</div>
