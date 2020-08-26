@@ -8,6 +8,12 @@ use Illuminate\Support\Facades\Auth;
 
 class FollowController extends Controller
 {
+    /**
+     * Toggle following status on user profile
+     *
+     * @param User $user
+     * @return mixed
+     */
     public function store(User $user)
     {
         return Auth::user()->following()->toggle($user->profile);

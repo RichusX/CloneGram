@@ -11,8 +11,8 @@ use Intervention\Image\Facades\Image;
 class ProfileController extends Controller
 {
     /**
-     * Show the current user profile.
-     *
+     * Redirect to the profile of currently logged in user
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function index()
     {
@@ -22,6 +22,12 @@ class ProfileController extends Controller
     }
 
 
+    /**
+     * View user profile
+     *
+     * @param $username
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function show($username)
     {
         $user = User::where('username', $username)->firstOrFail();
@@ -40,6 +46,13 @@ class ProfileController extends Controller
             return view('profiles.show', compact('user', 'follows', 'postCount', 'followerCount', 'followingCount'));
     }
 
+    /**
+     * Edit profile
+     *
+     * @param $username
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @throws \Illuminate\Auth\Access\AuthorizationException
+     */
     public function edit($username)
     {
         $user = User::where('username', $username)->firstOrFail();
@@ -48,6 +61,12 @@ class ProfileController extends Controller
         return view('profiles.edit', compact('user'));
     }
 
+    /**
+     * Update profile with the submitted data
+     *
+     * @param $username
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function update($username)
     {
         $data = request()->validate([
