@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
 use Intervention\Image\Facades\Image;
 
 class ProfileController extends Controller
@@ -16,9 +17,7 @@ class ProfileController extends Controller
     public function index()
     {
         // Return their own profile
-        return view('profiles.show', [
-            'user' => Auth::user(),
-        ]);
+        return redirect()->route('profile.show', ['username' => Auth::user()->username]);
 
     }
 
@@ -28,7 +27,17 @@ class ProfileController extends Controller
         $user = User::where('username', $username)->firstOrFail();
         $follows = (Auth::user()) ? Auth::user()->following->contains($user->id) : false;
 
-        return view('profiles.show', compact('user', 'follows'));
+        $postCount = Cache::remember('count.posts.'.$user->id, 30, function () use ($user) {
+            return $user->posts->count();
+        });
+        $followerCount = Cache::remember('count.followers.'.$user->id, 30, function () use ($user) {
+            return $user->profile->followers->count();
+        });
+        $followingCount = Cache::remember('count.following.'.$user->id, 30, function () use ($user) {
+            return $user->following->count();
+        });
+
+            return view('profiles.show', compact('user', 'follows', 'postCount', 'followerCount', 'followingCount'));
     }
 
     public function edit($username)
