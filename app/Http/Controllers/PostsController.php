@@ -72,6 +72,22 @@ class PostsController extends Controller
         return redirect()->route('profile.index');
     }
 
+    public function edit(Post $post)
+    {
+        return view('posts.edit', compact('post'));
+    }
+
+    public function update(Post $post)
+    {
+        $data = request()->validate([
+            'caption' => ['required', 'string'],
+        ]);
+
+        $post->update($data);
+
+        return redirect()->route('post.show', ['post' => $post->id]);
+    }
+
 
     /**
      * @param Post $post
