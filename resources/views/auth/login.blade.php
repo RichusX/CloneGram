@@ -8,6 +8,14 @@
                 <div class="card-header">{{ __('Login') }}</div>
 
                 <div class="card-body">
+                    <div class="col-md-10 offset-1">
+                        <div class="alert alert-warning" role="alert">
+                            If you do not wish to register, you can use the demo account:<br>
+                            E-Mail: <b>demo@user.test</b><br>
+                            Password: <b>demouser</b>
+                        </div>
+                    </div>
+
                     <form method="POST" action="{{ route('login') }}">
                         @csrf
 
