@@ -21,9 +21,10 @@ Route::get('/profile/{username}/edit', ['middleware'=>'auth', 'uses'=>'ProfileCo
 Route::patch('/profile/{username}', ['middleware'=>'auth', 'uses'=>'ProfileController@update'])->name('profile.update');
 
 Route::get('/', ['middleware'=>'auth', 'uses'=>'PostsController@index'])->name('index');
-Route::get('/p/create', ['middleware'=>'auth', 'uses'=>'PostsController@create'])->name('post.create');
-Route::post('/p', ['middleware'=>'auth', 'uses'=>'PostsController@store'])->name('post.store');
-Route::get('/p/{post}', 'PostsController@show')->name('post.show');
+Route::get('/post/create', ['middleware'=>'auth', 'uses'=>'PostsController@create'])->name('post.create');
+Route::post('/post', ['middleware'=>'auth', 'uses'=>'PostsController@store'])->name('post.store');
+Route::get('/post/{post}', 'PostsController@show')->name('post.show');
+Route::delete('/post/{post}', ['middleware'=>'auth', 'uses'=>'PostsController@destroy'])->middleware('can:delete,post')->name('post.destroy');
 
 Route::post('/follow/{user}', ['middleware'=>'auth', 'uses'=>'FollowController@store'])->name('follow.store');
 Route::post('/like/{post}', ['middleware'=>'auth', 'uses'=>'LikeController@store'])->name('like.store');

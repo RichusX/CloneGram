@@ -71,4 +71,19 @@ class PostsController extends Controller
 
         return redirect()->route('profile.index');
     }
+
+
+    /**
+     * @param Post $post
+     * @return \Illuminate\Http\RedirectResponse
+     * @throws \Exception
+     */
+    public function destroy(Post $post)
+    {
+        $post->delete();
+
+        return redirect()->route('index');
+    }
+
+
 }
