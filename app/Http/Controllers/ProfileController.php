@@ -21,7 +21,6 @@ class ProfileController extends Controller
 
     }
 
-
     /**
      * View user profile
      *

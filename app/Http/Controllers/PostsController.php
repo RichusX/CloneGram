@@ -72,11 +72,23 @@ class PostsController extends Controller
         return redirect()->route('profile.index');
     }
 
+    /**
+     * Show post edit form
+     *
+     * @param Post $post
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function edit(Post $post)
     {
         return view('posts.edit', compact('post'));
     }
 
+    /**
+     * Update post using form data
+     *
+     * @param Post $post
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function update(Post $post)
     {
         $data = request()->validate([
