@@ -4,7 +4,7 @@
     <div class="container">
         @foreach($posts as $post)
             <div class="row pb-4">
-                <div class="col-6 offset-3">
+                <div class="col-md-6 offset-md-3">
                     <div class="card">
                         <div class="card-body pb-1">
                             <div class="card-title">

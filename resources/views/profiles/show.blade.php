@@ -3,10 +3,10 @@
 @section('content')
 <div class="container">
     <div class="row">
-        <div class="col-3 p-5">
-            <img src="{{ $user->profile->profileImage() }}" class="rounded-circle w-100">
+        <div class="col-3 p-md-5 mx-auto my-auto">
+            <img src="{{ $user->profile->profileImage() }}" class="rounded-circle d-block w-100">
         </div>
-        <div class="col-9 pt-5">
+        <div class="col-9 my-auto">
             <div class="d-flex align-items-center">
                 <h1 class="mr-4">{{ $user->username }}</h1>
                 @auth
@@ -32,7 +32,7 @@
     </div>
     <div class="row pt-5">
         @foreach($user->posts as $post)
-            <div class="col-4 pb-4">
+            <div class="col-md-4 pb-4">
                 <a href="{{ @route('post.show', ['post' => $post->id]) }}">
                     <img src="/storage/{{ $post->image }}" class="w-100" alt=""/>
                 </a>

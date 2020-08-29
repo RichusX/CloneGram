@@ -3,28 +3,28 @@
 @section('content')
     <div class="container">
         <div class="row">
-            <div class="col-8">
+            <div class="col-md-8 mb-3">
                 <img src="/storage/{{ $post->image }}" class="img-fluid" alt="">
             </div>
-            <div class="col-4">
-                    <div class="d-flex align-items-center">
-                        <div class="mr-3">
-                            <a href="{{ @route('profile.show', ['username' => $post->user->username]) }}" >
-                                <img src="{{ $post->user->profile->profileImage() }}" alt="{{ $post->user->username}}'s profile picture" class="rounded-circle w-100" style="max-width: 40px;">
-                            </a>
-                        </div>
-                        <div class="font-weight-bold">
-                            <a href="{{ @route('profile.show', ['username' => $post->user->username]) }}" >
-                                <span class="text-dark">{{ $post->user->username }}</span>
-                            </a>
-                            @if($post->user_id != Auth::user()->id)
-                                <span>•</span>
-{{--                                <a href="#">Follow</a>--}}
-                                <follow-button user-id="{{ $post->user_id }}" follows="{{ $follows }}" as-link="btn-link"></follow-button>
-                            @endif
-
-                        </div>
+            <div class="col-md-4">
+                <div class="d-flex align-items-center">
+                    <div class="mr-3">
+                        <a href="{{ @route('profile.show', ['username' => $post->user->username]) }}" >
+                            <img src="{{ $post->user->profile->profileImage() }}" alt="{{ $post->user->username}}'s profile picture" class="rounded-circle w-100" style="max-width: 40px;">
+                        </a>
                     </div>
+                    <div class="font-weight-bold">
+                        <a href="{{ @route('profile.show', ['username' => $post->user->username]) }}" >
+                            <span class="text-dark">{{ $post->user->username }}</span>
+                        </a>
+                        @if($post->user_id != Auth::user()->id)
+                            <span>•</span>
+{{--                                <a href="#">Follow</a>--}}
+                            <follow-button user-id="{{ $post->user_id }}" follows="{{ $follows }}" as-link="btn-link"></follow-button>
+                        @endif
+
+                    </div>
+                </div>
                 <hr>
                 <div class="d-flex justify-content-between">
                     <like-button post-id="{{ $post->id }}" liked="{{ $likes->contains($post->id) }}" likes="{{ $post->liked_by->count() }}"></like-button>
@@ -51,7 +51,6 @@
                             </div>
                         @endcan
                     </div>
-
                 </div>
                 <div class="text-muted small pt-1">{{ $post->created_at_string() }}</div>
                 <hr>
