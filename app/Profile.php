@@ -10,7 +10,11 @@ class Profile extends Model
 
     public function profileImage()
     {
-        return ($this->image) ? '/storage/'.$this->image : '/storage/profile-placeholder.png';
+        if ($this->image){
+            return '/storage/'.$this->image;
+        } else {
+            return '/storage/profile-placeholder.png';
+        }
     }
 
     public function followers()

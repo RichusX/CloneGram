@@ -45,6 +45,11 @@ class Post extends Model
         }
 
         $string = array_slice($string, 0, $level);
-        return $string ? implode(', ', $string) . ' ago' : 'just now';
+
+        if ($string){
+            return implode(', ', $string) . ' ago';
+        } else {
+            return 'just now';
+        }
     }
 }

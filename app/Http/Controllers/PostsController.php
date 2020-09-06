@@ -43,7 +43,11 @@ class PostsController extends Controller
      */
     public function show(Post $post)
     {
-        $follows = (Auth::user()) ? Auth::user()->following->contains($post->user_id) : false;
+        if (Auth::user()){
+            $follows = Auth::user()->following->contains($post->user_id);
+        } else {
+            $follows = false;
+        }
         $likes = Auth::user()->liked_posts()->pluck('post_id');  // TODO: Optimise this, inefficient to pass all liked posts
         return view('posts.show', compact('post', 'likes', 'follows'));
     }

@@ -30,7 +30,11 @@ class ProfileController extends Controller
     public function show($username)
     {
         $user = User::where('username', $username)->firstOrFail();
-        $follows = (Auth::user()) ? Auth::user()->following->contains($user->id) : false;
+        if (Auth::user()){
+            $follows = Auth::user()->following->contains($user->id);
+        } else {
+            $follows = false;
+        }
 
         // Gather user profile stats (post count, followers and following) and cache them for 30 sec
         $profileStats = [
